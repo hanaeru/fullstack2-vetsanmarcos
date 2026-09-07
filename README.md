@@ -7,6 +7,8 @@ No usa frameworks, backend ni base de datos.
 
 ## Cómo abrir
 
+Link: https://hanaeru.github.io/fullstack2-vetsanmarcos/
+
 1. Abre la carpeta en Visual Studio Code.
 2. Abre `index.html` con Live Server.
 
