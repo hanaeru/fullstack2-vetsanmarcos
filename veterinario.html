@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veterinario | Veterinaria San Marcos</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/png" href="assets/logo-san-marcos.png">
+</head>
+<body class="app-page" data-role="veterinario">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="sidebar-brand" href="index.html">
+        <span class="sidebar-brand-mark logo-mark">
+          <img src="assets/logo-san-marcos.png" alt="">
+        </span>
+        <span>San Marcos</span>
+      </a>
+      <div class="sidebar-profile">
+        <strong>Médico veterinario</strong>
+        <span id="sidebar-email"></span>
+      </div>
+      <nav class="sidebar-nav" aria-label="Panel veterinario">
+        <button class="side-link active" type="button" data-section="dashboard" data-title="Dashboard clínico"><span class="side-icon">⌂</span>Dashboard</button>
+        <button class="side-link" type="button" data-section="appointments" data-title="Citas"><span class="side-icon">▣</span>Citas</button>
+        <button class="side-link" type="button" data-section="patients" data-title="Pacientes"><span class="side-icon">🐾</span>Pacientes</button>
+        <button class="side-link" type="button" data-section="record" data-title="Ficha clínica"><span class="side-icon">▤</span>Ficha clínica</button>
+        <button class="side-link" type="button" data-section="attention" data-title="Registrar atención"><span class="side-icon">✚</span>Nueva atención</button>
+        <button class="side-link" type="button" data-section="stock" data-title="Medicamentos y vacunas"><span class="side-icon">⚕</span>Medicamentos</button>
+      </nav>
+      <footer class="sidebar-footer">
+        <button id="logout-btn" class="btn btn-dark" type="button">Cerrar sesión</button>
+      </footer>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button id="sidebar-toggle" class="btn btn-soft btn-square mobile-sidebar-toggle" type="button" aria-label="Abrir menú">☰</button>
+          <h1 id="page-title">Dashboard clínico</h1>
+        </div>
+        <div class="topbar-user">
+          <span class="online-dot" aria-hidden="true"></span>
+          <span id="session-email" class="topbar-email"></span>
+        </div>
+      </header>
+
+      <main class="workspace-content">
+        <section class="dashboard-section active" data-section-panel="dashboard">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Veterinario</p>
+              <h2>Resumen clínico</h2>
+              <p>Desde la agenda puedes abrir la ficha de cada paciente.</p>
+            </div>
+          </div>
+          <div class="stat-grid">
+            <article class="card stat-card">
+              <span class="stat-label">Citas registradas</span>
+              <strong class="stat-value" id="n-citas">5</strong>
+              <span class="stat-note">Agenda clínica</span>
+            </article>
+            <article class="card stat-card">
+              <span class="stat-label">Pacientes registrados</span>
+              <strong class="stat-value" id="n-pacientes">5</strong>
+              <span class="stat-note">Pacientes disponibles</span>
+            </article>
+            <article class="card stat-card">
+              <span class="stat-label">Veterinarios</span>
+              <strong class="stat-value" id="n-veterinarios">3</strong>
+              <span class="stat-note">Equipo médico</span>
+            </article>
+            <article class="card stat-card">
+              <span class="stat-label">Productos en stock</span>
+              <strong class="stat-value" id="n-stock">22</strong>
+              <span class="stat-note">Medicamentos y vacunas</span>
+            </article>
+          </div>
+
+          <div class="grid-2 wide-left">
+            <article class="panel">
+              <div class="panel-title">
+                <div>
+                  <h2>Próximas citas</h2>
+                  <p>Selecciona una mascota para abrir su ficha clínica.</p>
+                </div>
+                <button class="btn btn-soft btn-small ir-seccion" data-go-section="appointments" data-title="Citas" type="button">Ver agenda</button>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <caption class="sr-only">Citas clínicas</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Fecha</th>
+                      <th scope="col">Hora</th>
+                      <th scope="col">Paciente</th>
+                      <th scope="col">Responsable</th>
+                      <th scope="col">Servicio</th>
+                      <th scope="col">Estado</th>
+                      <th scope="col">Acción</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tabla-citas-resumen"></tbody>
+                </table>
+              </div>
+            </article>
+            <article class="panel">
+              <div class="panel-title">
+                <div>
+                  <h2>Información clínica</h2>
+                  <p>Datos generales de la clínica.</p>
+                </div>
+              </div>
+              <div class="quick-list">
+                <div class="quick-item">
+                  <span>Pacientes promedio al día</span>
+                  <strong id="n-promedio">25</strong>
+                </div>
+                <div class="quick-item">
+                  <span>Especies atendidas</span>
+                  <strong>4 grupos</strong>
+                </div>
+                <div class="quick-item">
+                  <span>Servicios del catálogo</span>
+                  <strong id="n-servicios">31</strong>
+                </div>
+                <div class="quick-item">
+                  <span>Servicios de vacunación</span>
+                  <strong id="n-vacunas">6</strong>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="dashboard-section" data-section-panel="appointments">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Agenda</p>
+              <h2>Citas</h2>
+              <p>Revisa el motivo de consulta y entra a la ficha del paciente.</p>
+            </div>
+          </div>
+          <article class="panel">
+            <div class="filter-row">
+              <div class="form-group">
+                <label class="sr-only" for="buscador-citas">Buscar cita</label>
+                <input id="buscador-citas" type="search" placeholder="Buscar paciente o servicio">
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <caption class="sr-only">Listado de citas</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Paciente</th>
+                    <th scope="col">Responsable</th>
+                    <th scope="col">Servicio</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acción</th>
+                  </tr>
+                </thead>
+                <tbody id="tabla-citas"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <section class="dashboard-section" data-section-panel="patients">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Pacientes</p>
+              <h2>Listado de pacientes</h2>
+              <p>Busca una mascota y abre su ficha clínica.</p>
+            </div>
+          </div>
+          <article class="panel">
+            <div class="search-bar">
+              <label class="sr-only" for="buscador-pacientes">Buscar paciente</label>
+              <input id="buscador-pacientes" type="search" placeholder="Buscar por mascota, especie o responsable">
+            </div>
+            <div class="table-wrap">
+              <table>
+                <caption class="sr-only">Listado de pacientes</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Paciente</th>
+                    <th scope="col">Especie</th>
+                    <th scope="col">Raza</th>
+                    <th scope="col">Edad</th>
+                    <th scope="col">Responsable</th>
+                    <th scope="col">Técnico</th>
+                    <th scope="col">Acción</th>
+                  </tr>
+                </thead>
+                <tbody id="tabla-pacientes"></tbody>
+              </table>
+            </div>
+          </article>
+          <article class="panel">
+            <div class="panel-title">
+              <div>
+                <h2>Asignar técnico</h2>
+                <p>Elige una mascota y el técnico que la va a apoyar.</p>
+              </div>
+            </div>
+            <form id="asig-form" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="asig-paciente">Paciente</label>
+                  <select id="asig-paciente" required>
+                    <option value="">Selecciona</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="asig-tecnico">Técnico</label>
+                  <select id="asig-tecnico">
+                    <option value="">Sin asignar</option>
+                  </select>
+                </div>
+              </div>
+              <button class="btn btn-primary" type="submit">Guardar asignación</button>
+              <p class="form-message" aria-live="polite"></p>
+            </form>
+          </article>
+        </section>
+
+        <section class="dashboard-section" data-section-panel="record">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Ficha clínica</p>
+              <h2>Información del paciente</h2>
+              <p>Selecciona una mascota para revisar antecedentes, vacunas e historial.</p>
+            </div>
+          </div>
+          <article class="panel">
+            <div class="patient-selector-box">
+              <div class="form-group no-margin">
+                <label for="patient-selector">Paciente</label>
+                <select id="patient-selector">
+                  <option value="">Selecciona una mascota</option>
+                </select>
+              </div>
+              <span class="status status-info">Paciente: <strong id="selected-patient-label">Ninguno</strong></span>
+            </div>
+          </article>
+
+          <div id="patient-empty" class="empty-state">
+            <span class="emoji" aria-hidden="true">🐾</span>
+            Selecciona una mascota desde el listado, la agenda o el selector.
+          </div>
+
+          <div id="patient-record-content" class="stack" hidden>
+            <article class="panel">
+              <div class="patient-summary">
+                <div id="patient-avatar" class="patient-avatar">🐾</div>
+                <div>
+                  <p class="eyebrow">Paciente</p>
+                  <h2 id="patient-name">—</h2>
+                  <p id="patient-main-data" class="muted">—</p>
+                  <div class="patient-meta">
+                    <div><span>Responsable</span><strong id="patient-owner">—</strong></div>
+                    <div><span>Sexo</span><strong id="patient-sex">—</strong></div>
+                    <div><span>Peso</span><strong id="patient-weight">—</strong></div>
+                    <div><span>Motivo actual</span><strong id="patient-reason">—</strong></div>
+                    <div><span>Teléfono</span><strong id="patient-phone">—</strong></div>
+                    <div><span>ID</span><strong id="patient-id">—</strong></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <div class="grid-2">
+              <article class="panel">
+                <div class="panel-title">
+                  <div>
+                    <h2>Historial clínico</h2>
+                    <p>Atenciones anteriores registradas.</p>
+                  </div>
+                </div>
+                <div id="patient-history" class="timeline"></div>
+              </article>
+              <article class="panel">
+                <div class="panel-title">
+                  <div>
+                    <h2>Vacunas</h2>
+                    <p>Estado y próximas fechas.</p>
+                  </div>
+                </div>
+                <div id="patient-vaccines" class="vaccine-list"></div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="dashboard-section" data-section-panel="attention">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Atención clínica</p>
+              <h2>Registrar nueva atención</h2>
+              <p>Lo que guardes aquí se agrega al historial de la ficha del paciente.</p>
+            </div>
+          </div>
+          <div class="grid-2 wide-left">
+            <article class="panel">
+              <form id="clinical-form" novalidate>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="clinical-patient">Paciente</label>
+                    <select id="clinical-patient" name="paciente" required>
+                      <option value="">Selecciona un paciente</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="clinical-date">Fecha</label>
+                    <input id="clinical-date" name="fecha" type="date" required>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="clinical-symptoms">Síntomas / motivo</label>
+                  <textarea id="clinical-symptoms" name="sintomas" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="clinical-diagnosis">Diagnóstico</label>
+                  <textarea id="clinical-diagnosis" name="diagnostico" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="clinical-treatment">Tratamiento</label>
+                  <textarea id="clinical-treatment" name="tratamiento" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="clinical-medicine">Medicamento asociado</label>
+                  <select id="clinical-medicine" name="medicamento">
+                    <option value="">Sin medicamento</option>
+                  </select>
+                </div>
+                <button class="btn btn-primary" type="submit">Guardar atención</button>
+                <p class="form-message" aria-live="polite"></p>
+              </form>
+            </article>
+            <article class="panel">
+              <div class="panel-title">
+                <div>
+                  <h2>Catálogo rápido</h2>
+                  <p>Servicios usados con frecuencia.</p>
+                </div>
+              </div>
+              <div class="quick-list" id="lista-servicios-rapidos"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="dashboard-section" data-section-panel="stock">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Apoyo clínico</p>
+              <h2>Medicamentos y vacunas</h2>
+              <p>Inventario disponible para consulta durante la atención.</p>
+            </div>
+          </div>
+          <article class="panel">
+            <div class="filter-row">
+              <div class="form-group">
+                <label class="sr-only" for="buscador-stock">Buscar producto</label>
+                <input id="buscador-stock" type="search" placeholder="Buscar por producto, categoría o principio activo">
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="filtro-stock">Filtrar por categoría</label>
+                <select id="filtro-stock">
+                  <option value="">Todas las categorías</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <caption class="sr-only">Inventario de medicamentos y vacunas</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Código</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Categoría</th>
+                    <th scope="col">Principio activo</th>
+                    <th scope="col">Especie</th>
+                    <th scope="col">Stock</th>
+                  </tr>
+                </thead>
+                <tbody id="tabla-stock"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+  </div>
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+  <script src="js/data.js"></script>
+  <script src="js/comun.js"></script>
+  <script src="js/veterinario.js"></script>
+</body>
+</html>
