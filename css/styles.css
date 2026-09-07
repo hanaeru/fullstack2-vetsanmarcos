@@ -1,0 +1,923 @@
+/* ==================================================
+   ESTILOS GENERALES
+   Este CSS usa reglas simples y colores escritos directamente.
+   No usa variables de CSS ni efectos complicados.
+   ================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #1f2937;
+    background-color: #ffffff;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: Arial, sans-serif;
+}
+
+button {
+    cursor: pointer;
+}
+
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.hidden,
+[hidden] {
+    display: none !important;
+}
+
+.muted {
+    color: #666666;
+}
+
+.eyebrow {
+    color: #1d4ed8;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* ==================================================
+   BOTONES
+   ================================================== */
+
+.btn {
+    display: inline-block;
+    padding: 10px 16px;
+    border: 1px solid #1f2937;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background-color: #3b82f6;
+    color: white;
+    border-color: #3b82f6;
+}
+
+.btn-dark {
+    background-color: #1f2937;
+    color: white;
+}
+
+.btn-soft {
+    background-color: #e5efff;
+    color: #1f2937;
+    border-color: #9fb7d8;
+}
+
+.btn-small {
+    padding: 6px 10px;
+    font-size: 13px;
+}
+
+.btn-square {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+}
+
+/* ==================================================
+   FORMULARIOS
+   ================================================== */
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #9ca3af;
+    border-radius: 5px;
+    background-color: white;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.form-row-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.form-message {
+    margin-top: 12px;
+    font-weight: bold;
+}
+
+.success {
+    color: #1f7a3d;
+}
+
+.error,
+.error-message {
+    color: #b42318;
+}
+
+.no-margin {
+    margin-bottom: 0;
+}
+
+/* ==================================================
+   PÁGINA PRINCIPAL
+   ================================================== */
+
+.site-header {
+    background-color: #8abeff;
+    border-bottom: 1px solid #4b5563;
+}
+
+.nav-wrap {
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.brand-logo img {
+    display: block;
+    height: 50px;
+    width: auto;
+}
+
+.main-nav {
+    display: flex;
+    gap: 20px;
+    font-weight: bold;
+}
+
+.main-nav a:hover {
+    text-decoration: underline;
+}
+
+.hero {
+    background-color: #eaf3ff;
+    padding: 45px 0;
+}
+
+.hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+    align-items: center;
+}
+
+.hero-copy h1 {
+    font-size: 42px;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.hero-copy p {
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.hero-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.hero-visual {
+    text-align: center;
+}
+
+.hero-photo {
+    width: 100%;
+    max-width: 550px;
+    border-radius: 8px;
+}
+
+.section {
+    padding: 60px 0;
+}
+
+.section-soft {
+    background-color: #f4f8ff;
+}
+
+.split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.about-visual {
+    text-align: center;
+    background-color: #eaf3ff;
+    padding: 40px;
+    border: 1px solid #b7cae6;
+}
+
+.about-visual img {
+    width: 220px;
+}
+
+.section-heading {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.card,
+.panel {
+    background-color: white;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+.service-card h3 {
+    margin-top: 0;
+}
+
+.service-card p {
+    color: #555555;
+}
+
+.contact-section {
+    background-color: #eef5ff;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+}
+
+.site-footer {
+    background-color: #0f1b2d;
+    color: white;
+    padding: 30px 0;
+}
+
+.footer-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.footer-grid img {
+    height: 45px;
+    width: auto;
+}
+
+.footer-nav {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+/* ==================================================
+   LOGIN Y REGISTRO
+   ================================================== */
+
+.auth-page {
+    min-height: 100vh;
+    margin: 0;
+    background-image: url("../assets/fondo-login.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.auth-shell {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.auth-box {
+    width: 100%;
+    max-width: 360px;
+    padding: 25px;
+    background-color: #8abeff;
+    border: 1px solid #4b5563;
+    border-radius: 8px;
+}
+
+.auth-logo {
+    display: block;
+    height: 65px;
+    width: auto;
+    margin: 0 auto 15px;
+}
+
+.auth-box h1 {
+    text-align: center;
+}
+
+.auth-button {
+    width: 100%;
+}
+
+.auth-extra,
+.auth-back {
+    text-align: center;
+}
+
+.auth-extra a,
+.auth-back {
+    color: #123d78;
+    font-weight: bold;
+}
+
+/* ==================================================
+   PANELES DEL SISTEMA
+   Se usa la misma estructura para todos los roles.
+   ================================================== */
+
+.app-page {
+    min-height: 100vh;
+    background-color: #f5f7fa;
+}
+
+.app-shell {
+    min-height: 100vh;
+    display: flex;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 230px;
+    background-color: #cfe3ff;
+    border-right: 1px solid #9fb7d8;
+    overflow-y: auto;
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 65px;
+    padding: 10px 15px;
+    border-bottom: 1px solid #9fb7d8;
+    font-weight: bold;
+}
+
+.sidebar-brand-mark {
+    width: 35px;
+    height: 35px;
+    background-color: white;
+    border: 1px solid #9fb7d8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-mark img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.sidebar-profile {
+    padding: 15px;
+    border-bottom: 1px solid #9fb7d8;
+}
+
+.sidebar-profile strong,
+.sidebar-profile span {
+    display: block;
+}
+
+.sidebar-profile span {
+    margin-top: 4px;
+    font-size: 13px;
+    color: #52606d;
+    word-break: break-word;
+}
+
+.sidebar-nav {
+    padding: 10px;
+}
+
+.side-link {
+    width: 100%;
+    display: block;
+    margin-bottom: 5px;
+    padding: 10px;
+    border: 1px solid transparent;
+    background-color: transparent;
+    text-align: left;
+    font-weight: bold;
+}
+
+.side-link:hover,
+.side-link.active {
+    background-color: white;
+    border-color: #9fb7d8;
+}
+
+.side-icon {
+    display: inline-block;
+    width: 25px;
+}
+
+.sidebar-footer {
+    padding: 10px;
+}
+
+.sidebar-footer .btn {
+    width: 100%;
+}
+
+.workspace {
+    width: calc(100% - 230px);
+    margin-left: 230px;
+}
+
+.topbar {
+    min-height: 65px;
+    background-color: white;
+    border-bottom: 1px solid #cbd5e1;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.topbar-left,
+.topbar-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.topbar h1 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.topbar-email {
+    color: #666666;
+    font-size: 14px;
+}
+
+.online-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: green;
+}
+
+.mobile-sidebar-toggle {
+    display: none;
+}
+
+.workspace-content {
+    padding: 20px;
+}
+
+.dashboard-section {
+    display: none;
+}
+
+.dashboard-section.active {
+    display: block;
+}
+
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.page-heading h2 {
+    margin: 0 0 5px;
+}
+
+.page-heading p {
+    margin: 0;
+    color: #666666;
+}
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.stat-card {
+    min-height: 110px;
+}
+
+.stat-label {
+    color: #666666;
+    font-size: 13px;
+}
+
+.stat-value {
+    display: block;
+    margin: 10px 0;
+    font-size: 28px;
+    font-weight: bold;
+    color: #1d4ed8;
+}
+
+.stat-note {
+    color: #666666;
+    font-size: 12px;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.wide-left {
+    grid-template-columns: 2fr 1fr;
+}
+
+.stack {
+    display: grid;
+    gap: 15px;
+}
+
+.panel-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.panel-title h2,
+.panel-title h3 {
+    margin-top: 0;
+}
+
+.table-wrap {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    min-width: 650px;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid #d1d5db;
+    padding: 9px;
+    text-align: left;
+}
+
+th {
+    background-color: #e8f1ff;
+}
+
+.low-stock td {
+    background-color: #fff0f0;
+}
+
+.actions,
+.table-actions {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+}
+
+.search-bar,
+.filter-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.search-bar input,
+.filter-row input,
+.filter-row select {
+    padding: 9px;
+    border: 1px solid #9ca3af;
+    border-radius: 4px;
+}
+
+.search-bar input {
+    flex: 1;
+}
+
+.filter-row .form-group {
+    flex: 1;
+    min-width: 180px;
+    margin-bottom: 0;
+}
+
+.quick-list {
+    display: grid;
+    gap: 8px;
+}
+
+.quick-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #d1d5db;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.status {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: #e5e7eb;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status-ok {
+    background-color: #dff3e5;
+    color: #1f6b38;
+}
+
+.status-info {
+    background-color: #dbeafe;
+    color: #1e4f8a;
+}
+
+.status-warning {
+    background-color: #fff3cd;
+    color: #7a5200;
+}
+
+.status-danger {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.status-muted {
+    background-color: #e5e7eb;
+    color: #555555;
+}
+
+.patient-summary {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 15px;
+    align-items: start;
+}
+
+.patient-avatar {
+    width: 80px;
+    height: 80px;
+    background-color: #dbeafe;
+    border: 1px solid #9fb7d8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+}
+
+.patient-meta {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.patient-meta div {
+    background-color: #f3f6fa;
+    padding: 9px;
+    border: 1px solid #d9e1ea;
+}
+
+.patient-meta span,
+.patient-meta strong {
+    display: block;
+}
+
+.patient-meta span {
+    font-size: 12px;
+    color: #666666;
+}
+
+.timeline {
+    display: grid;
+    gap: 10px;
+}
+
+.timeline-item {
+    border-left: 3px solid #3b82f6;
+    padding-left: 10px;
+}
+
+.vaccine-list {
+    display: grid;
+    gap: 8px;
+}
+
+.vaccine-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr auto;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px solid #d1d5db;
+    align-items: center;
+}
+
+.patient-selector-box {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    align-items: end;
+    margin-bottom: 15px;
+}
+
+.empty-state {
+    padding: 25px;
+    text-align: center;
+    border: 1px dashed #9ca3af;
+    background-color: #fafafa;
+    color: #666666;
+}
+
+.emoji {
+    display: block;
+    font-size: 35px;
+    margin-bottom: 8px;
+}
+
+.toast-container {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+}
+
+.toast {
+    background-color: white;
+    border: 1px solid #9ca3af;
+    padding: 10px 14px;
+    margin-top: 8px;
+}
+
+.admin-editor {
+    margin-top: 20px;
+    border: 2px solid #7fb0f0;
+}
+
+.admin-record-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.admin-record-row > div {
+    flex: 1;
+}
+
+.admin-vaccine-row {
+    grid-template-columns: 2fr 1fr 1fr auto auto;
+}
+
+.section-divider {
+    border: 0;
+    border-top: 1px solid #d1d5db;
+    margin: 25px 0;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+}
+
+/* ==================================================
+   ADAPTACIÓN A PANTALLAS MÁS PEQUEÑAS
+   Solo se cambian columnas y menú lateral.
+   ================================================== */
+
+@media (max-width: 900px) {
+    .hero-grid,
+    .split,
+    .contact-grid,
+    .grid-2,
+    .wide-left {
+        grid-template-columns: 1fr;
+    }
+
+    .service-grid,
+    .stat-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .sidebar {
+        display: none;
+        z-index: 10;
+    }
+
+    .sidebar.open {
+        display: block;
+    }
+
+    .workspace {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .mobile-sidebar-toggle {
+        display: inline-block;
+    }
+}
+
+@media (max-width: 650px) {
+    .nav-wrap {
+        display: block;
+        padding: 12px 0;
+    }
+
+    .brand-logo img {
+        margin: 0 auto 12px;
+    }
+
+    .main-nav {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .hero-copy h1 {
+        font-size: 32px;
+    }
+
+    .service-grid,
+    .stat-grid,
+    .form-row,
+    .form-row-3,
+    .patient-meta,
+    .vaccine-row,
+    .admin-vaccine-row,
+    .patient-selector-box {
+        grid-template-columns: 1fr;
+    }
+
+    .page-heading,
+    .panel-title,
+    .admin-record-row {
+        display: block;
+    }
+
+    .topbar-email {
+        display: none;
+    }
+
+    .workspace-content {
+        padding: 12px;
+    }
+}
