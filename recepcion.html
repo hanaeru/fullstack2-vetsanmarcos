@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recepción | Veterinaria San Marcos</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/png" href="assets/logo-san-marcos.png">
+</head>
+<body class="app-page" data-role="recepcion">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="sidebar-brand" href="index.html">
+        <span class="sidebar-brand-mark logo-mark">
+          <img src="assets/logo-san-marcos.png" alt="">
+        </span>
+        <span>San Marcos</span>
+      </a>
+      <div class="sidebar-profile">
+        <strong>Recepción</strong>
+        <span id="sidebar-email"></span>
+      </div>
+      <nav class="sidebar-nav" aria-label="Panel de recepción">
+        <button class="side-link active" type="button" data-section="dashboard" data-title="Dashboard de recepción"><span class="side-icon">⌂</span>Dashboard</button>
+        <button class="side-link" type="button" data-section="appointments" data-title="Citas"><span class="side-icon">▣</span>Citas</button>
+        <button class="side-link" type="button" data-section="patients" data-title="Pacientes"><span class="side-icon">🐾</span>Pacientes</button>
+        <button class="side-link" type="button" data-section="new-patient" data-title="Registrar paciente"><span class="side-icon">＋</span>Nuevo paciente</button>
+        <button class="side-link" type="button" data-section="services" data-title="Servicios"><span class="side-icon">▦</span>Servicios</button>
+      </nav>
+      <footer class="sidebar-footer">
+        <button id="logout-btn" class="btn btn-dark" type="button">Cerrar sesión</button>
+      </footer>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button id="sidebar-toggle" class="btn btn-soft btn-square mobile-sidebar-toggle" type="button" aria-label="Abrir menú">☰</button>
+          <h1 id="page-title">Dashboard de recepción</h1>
+        </div>
+        <div class="topbar-user">
+          <span class="online-dot" aria-hidden="true"></span>
+          <span id="session-email" class="topbar-email"></span>
+        </div>
+      </header>
+
+      <main class="workspace-content">
+        <section class="dashboard-section active" data-section-panel="dashboard">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Recepción</p>
+              <h2>Resumen de agenda</h2>
+              <p>La agenda, los pacientes y los servicios son los mismos datos que ve administración y veterinario.</p>
+            </div>
+          </div>
+          <div class="stat-grid">
+            <article class="card stat-card">
+              <span class="stat-label">Citas registradas</span>
+              <strong class="stat-value" id="n-citas">5</strong>
+              <span class="stat-note">Agenda actual</span>
+            </article>
+            <article class="card stat-card">
+              <span class="stat-label">Pacientes promedio</span>
+              <strong class="stat-value" id="n-promedio">25</strong>
+              <span class="stat-note">Por día</span>
+            </article>
+            <article class="card stat-card">
+              <span class="stat-label">Servicios</span>
+              <strong class="stat-value" id="n-servicios">31</strong>
+              <span class="stat-note">Catálogo disponible</span>
+            </article>
+            <article class="card stat-card">
+              <span class="stat-label">Inasistencia</span>
+              <strong class="stat-value" id="n-inasistencia">20</strong>
+              <span class="stat-note">Porcentaje del caso</span>
+            </article>
+          </div>
+          <div class="grid-2 wide-left">
+            <article class="panel">
+              <div class="panel-title">
+                <div>
+                  <h2>Agenda</h2>
+                  <p>Estado de las atenciones registradas.</p>
+                </div>
+                <button class="btn btn-soft btn-small ir-seccion" data-go-section="appointments" data-title="Citas" type="button">Gestionar citas</button>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <caption class="sr-only">Agenda de citas</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Fecha</th>
+                      <th scope="col">Hora</th>
+                      <th scope="col">Paciente</th>
+                      <th scope="col">Responsable</th>
+                      <th scope="col">Servicio</th>
+                      <th scope="col">Estado</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tabla-citas-resumen"></tbody>
+                </table>
+              </div>
+            </article>
+            <article class="panel">
+              <div class="panel-title">
+                <div>
+                  <h2>Accesos rápidos</h2>
+                  <p>Tareas frecuentes de recepción.</p>
+                </div>
+              </div>
+              <div class="quick-list">
+                <div class="quick-item">
+                  <span>Registrar paciente</span>
+                  <button class="btn btn-soft btn-small ir-seccion" data-go-section="new-patient" data-title="Registrar paciente" type="button">Abrir</button>
+                </div>
+                <div class="quick-item">
+                  <span>Buscar paciente</span>
+                  <button class="btn btn-soft btn-small ir-seccion" data-go-section="patients" data-title="Pacientes" type="button">Abrir</button>
+                </div>
+                <div class="quick-item">
+                  <span>Consultar servicios</span>
+                  <button class="btn btn-soft btn-small ir-seccion" data-go-section="services" data-title="Servicios" type="button">Abrir</button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="dashboard-section" data-section-panel="appointments">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Citas</p>
+              <h2>Gestión de agenda</h2>
+              <p>Confirma, reagenda o cancela. El cambio se guarda en la misma lista de citas.</p>
+            </div>
+          </div>
+          <div class="grid-2 wide-left">
+            <article class="panel">
+              <div class="search-bar">
+                <label class="sr-only" for="buscador-citas">Buscar cita</label>
+                <input id="buscador-citas" type="search" placeholder="Buscar paciente, responsable o servicio">
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <caption class="sr-only">Citas para gestionar</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Fecha</th>
+                      <th scope="col">Hora</th>
+                      <th scope="col">Paciente</th>
+                      <th scope="col">Responsable</th>
+                      <th scope="col">Servicio</th>
+                      <th scope="col">Estado</th>
+                      <th scope="col">Acción</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tabla-citas"></tbody>
+                </table>
+              </div>
+            </article>
+            <article class="panel">
+              <div class="panel-title">
+                <div>
+                  <h2>Actualizar cita</h2>
+                  <p>Selecciona una cita y la acción.</p>
+                </div>
+              </div>
+              <form id="appointment-form" novalidate>
+                <div class="form-group">
+                  <label for="appointment-select">Cita</label>
+                  <select id="appointment-select" name="cita" required>
+                    <option value="">Selecciona una cita</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="appointment-action">Acción</label>
+                  <select id="appointment-action" name="accion" required>
+                    <option value="">Selecciona</option>
+                    <option value="Confirmada">Confirmar</option>
+                    <option value="Reagendada">Reagendar</option>
+                    <option value="Cancelada">Cancelar</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="appointment-new-time">Nuevo horario</label>
+                  <input id="appointment-new-time" name="hora" type="time">
+                </div>
+                <button class="btn btn-primary" type="submit">Guardar cambio</button>
+                <p class="form-message" aria-live="polite"></p>
+              </form>
+            </article>
+          </div>
+        </section>
+
+        <section class="dashboard-section" data-section-panel="patients">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Pacientes</p>
+              <h2>Directorio de pacientes</h2>
+              <p>Busca por mascota, especie o responsable.</p>
+            </div>
+          </div>
+          <article class="panel">
+            <div class="search-bar">
+              <label class="sr-only" for="buscador-pacientes">Buscar paciente</label>
+                <input id="buscador-pacientes" type="search" placeholder="Buscar paciente">
+            </div>
+            <div class="table-wrap">
+              <table>
+                <caption class="sr-only">Directorio de pacientes</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Paciente</th>
+                    <th scope="col">Especie</th>
+                    <th scope="col">Raza</th>
+                    <th scope="col">Edad</th>
+                    <th scope="col">Responsable</th>
+                    <th scope="col">Teléfono</th>
+                    <th scope="col">Técnico</th>
+                  </tr>
+                </thead>
+                <tbody id="tabla-pacientes"></tbody>
+              </table>
+            </div>
+          </article>
+          <article class="panel">
+            <div class="panel-title">
+              <div>
+                <h2>Asignar técnico</h2>
+                <p>Elige una mascota y el técnico que la va a apoyar.</p>
+              </div>
+            </div>
+            <form id="asig-form" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="asig-paciente">Paciente</label>
+                  <select id="asig-paciente" required>
+                    <option value="">Selecciona</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="asig-tecnico">Técnico</label>
+                  <select id="asig-tecnico">
+                    <option value="">Sin asignar</option>
+                  </select>
+                </div>
+              </div>
+              <button class="btn btn-primary" type="submit">Guardar asignación</button>
+              <p class="form-message" aria-live="polite"></p>
+            </form>
+          </article>
+        </section>
+
+        <section class="dashboard-section" data-section-panel="new-patient">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Pacientes</p>
+              <h2>Registrar paciente</h2>
+              <p>El paciente nuevo se agrega a la lista de la clínica. Después aparece aquí, en veterinario y en administrador.</p>
+            </div>
+          </div>
+          <article class="panel form-panel">
+            <form id="new-patient-form" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="new-pet-name">Nombre de mascota</label>
+                  <input id="new-pet-name" name="nombre" type="text" required>
+                </div>
+                <div class="form-group">
+                  <label for="new-owner">Responsable</label>
+                  <input id="new-owner" name="responsable" type="text" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="new-species">Especie</label>
+                  <select id="new-species" name="especie" required>
+                    <option value="">Selecciona</option>
+                    <option>Perro</option>
+                    <option>Gato</option>
+                    <option>Conejo</option>
+                    <option>Ave</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="new-breed">Raza</label>
+                  <input id="new-breed" name="raza" type="text" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="new-age">Edad</label>
+                  <input id="new-age" name="edad" type="text" required>
+                </div>
+                <div class="form-group">
+                  <label for="new-phone">Teléfono</label>
+                  <input id="new-phone" name="telefono" type="tel" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="new-tecnico">Técnico asignado</label>
+                <select id="new-tecnico">
+                  <option value="">Sin asignar</option>
+                </select>
+              </div>
+              <button class="btn btn-primary" type="submit">Guardar paciente</button>
+              <p class="form-message" aria-live="polite"></p>
+            </form>
+          </article>
+        </section>
+
+        <section class="dashboard-section" data-section-panel="services">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Catálogo</p>
+              <h2>Servicios y valores</h2>
+              <p>Consulta duración, especie y precio.</p>
+            </div>
+          </div>
+          <article class="panel">
+            <div class="filter-row">
+              <div class="form-group">
+                <label class="sr-only" for="buscador-servicios">Buscar servicio</label>
+                <input id="buscador-servicios" type="search" placeholder="Buscar servicio">
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="filtro-servicios">Filtrar por categoría</label>
+                <select id="filtro-servicios">
+                  <option value="">Todas las categorías</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <caption class="sr-only">Catálogo de servicios</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Código</th>
+                    <th scope="col">Categoría</th>
+                    <th scope="col">Servicio</th>
+                    <th scope="col">Especie</th>
+                    <th scope="col">Duración</th>
+                    <th scope="col">Precio</th>
+                  </tr>
+                </thead>
+                <tbody id="tabla-servicios"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+  </div>
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+  <script src="js/data.js"></script>
+  <script src="js/comun.js"></script>
+  <script src="js/recepcion.js"></script>
+</body>
+</html>
