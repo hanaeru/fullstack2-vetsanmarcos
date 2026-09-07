@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Técnico veterinario | Veterinaria San Marcos</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/png" href="assets/logo-san-marcos.png">
+</head>
+<body class="app-page" data-role="tecnico">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="sidebar-brand" href="index.html">
+        <span class="sidebar-brand-mark logo-mark">
+          <img src="assets/logo-san-marcos.png" alt="">
+        </span>
+        <span>San Marcos</span>
+      </a>
+      <div class="sidebar-profile">
+        <strong>Técnico veterinario</strong>
+        <span id="sidebar-email"></span>
+      </div>
+      <nav class="sidebar-nav" aria-label="Panel del técnico">
+        <button class="side-link active" type="button" data-section="dashboard" data-title="Mi turno"><span class="side-icon">⌂</span>Inicio</button>
+        <button class="side-link" type="button" data-section="appointments" data-title="Citas asignadas"><span class="side-icon">▣</span>Citas</button>
+        <button class="side-link" type="button" data-section="patients" data-title="Pacientes asignados"><span class="side-icon">🐾</span>Pacientes</button>
+        <button class="side-link" type="button" data-section="record" data-title="Ficha y apoyo"><span class="side-icon">▤</span>Ficha y apoyo</button>
+        <button class="side-link" type="button" data-section="stock" data-title="Medicamentos"><span class="side-icon">⚕</span>Medicamentos</button>
+      </nav>
+      <footer class="sidebar-footer">
+        <button id="logout-btn" class="btn btn-dark" type="button">Cerrar sesión</button>
+      </footer>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button id="sidebar-toggle" class="btn btn-soft btn-square mobile-sidebar-toggle" type="button" aria-label="Abrir menú">☰</button>
+          <h1 id="page-title">Mi turno</h1>
+        </div>
+        <div class="topbar-user">
+          <span class="online-dot" aria-hidden="true"></span>
+          <span id="session-email" class="topbar-email"></span>
+        </div>
+      </header>
+
+      <main class="workspace-content">
+        <section class="dashboard-section active" data-section-panel="dashboard">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Técnico veterinario</p>
+              <h2>Cómo trabaja este panel</h2>
+              <p>1. Recepción o el médico te asignan una mascota. 2. Miras la cita. 3. Abres la ficha. 4. Anotas el apoyo (vacuna, muestra o preparación). El médico diagnostica después.</p>
+            </div>
+          </div>
+          <div class="stat-grid">
+            <article class="card stat-card">
+              <span class="stat-label">Citas</span>
+              <strong class="stat-value" id="n-citas">0</strong>
+              <span class="stat-note">De pacientes asignados</span>
+            </article>
+            <article class="card stat-card">
+              <span class="stat-label">Pacientes</span>
+              <strong class="stat-value" id="n-pacientes">0</strong>
+              <span class="stat-note">Asignados a este técnico</span>
+            </article>
+            <article class="card stat-card">
+              <span class="stat-label">Técnicos</span>
+              <strong class="stat-value" id="n-tecnicos">1</strong>
+              <span class="stat-note">Equipo de apoyo</span>
+            </article>
+            <article class="card stat-card">
+              <span class="stat-label">Productos</span>
+              <strong class="stat-value" id="n-stock">22</strong>
+              <span class="stat-note">Para preparar vacunas y medicamentos</span>
+            </article>
+          </div>
+          <article class="panel">
+            <div class="panel-title">
+              <div>
+                <h2>Citas de mis pacientes</h2>
+                <p>Empieza por aquí: abre la ficha y luego anota el apoyo.</p>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <caption class="sr-only">Citas asignadas</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Paciente</th>
+                    <th scope="col">Servicio</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acción</th>
+                  </tr>
+                </thead>
+                <tbody id="tabla-citas-resumen"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <section class="dashboard-section" data-section-panel="appointments">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Agenda</p>
+              <h2>Citas asignadas</h2>
+              <p>Solo ves citas de tus mascotas. No cambias el estado: eso lo hace recepción.</p>
+            </div>
+          </div>
+          <article class="panel">
+            <div class="filter-row">
+              <div class="form-group">
+                <label class="sr-only" for="buscador-citas">Buscar cita</label>
+                <input id="buscador-citas" type="search" placeholder="Buscar paciente o servicio">
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <caption class="sr-only">Listado de citas</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Paciente</th>
+                    <th scope="col">Responsable</th>
+                    <th scope="col">Servicio</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acción</th>
+                  </tr>
+                </thead>
+                <tbody id="tabla-citas"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <section class="dashboard-section" data-section-panel="patients">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Pacientes</p>
+              <h2>Pacientes asignados</h2>
+              <p>Estas mascotas te las asignó recepción, el veterinario o administración.</p>
+            </div>
+          </div>
+          <article class="panel">
+            <div class="search-bar">
+              <label class="sr-only" for="buscador-pacientes">Buscar paciente</label>
+              <input id="buscador-pacientes" type="search" placeholder="Buscar por mascota, especie o responsable">
+            </div>
+            <div class="table-wrap">
+              <table>
+                <caption class="sr-only">Listado de pacientes</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Paciente</th>
+                    <th scope="col">Especie</th>
+                    <th scope="col">Raza</th>
+                    <th scope="col">Edad</th>
+                    <th scope="col">Responsable</th>
+                    <th scope="col">Acción</th>
+                  </tr>
+                </thead>
+                <tbody id="tabla-pacientes"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+
+        <section class="dashboard-section" data-section-panel="record">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Atención de apoyo</p>
+              <h2>Ficha y apoyo</h2>
+              <p>Lee la ficha y, abajo, anota lo que hiciste. No se escribe diagnóstico.</p>
+            </div>
+          </div>
+
+          <div id="patient-empty" class="empty-state">
+            <span class="emoji" aria-hidden="true">🐾</span>
+            Abre una mascota desde Citas o Pacientes.
+          </div>
+
+          <div id="patient-record-content" class="stack" hidden>
+            <article class="panel">
+              <div class="patient-summary">
+                <div id="patient-avatar" class="patient-avatar">🐾</div>
+                <div>
+                  <p class="eyebrow">Paciente</p>
+                  <h2 id="patient-name">—</h2>
+                  <p id="patient-main-data" class="muted">—</p>
+                  <div class="patient-meta">
+                    <div><span>Responsable</span><strong id="patient-owner">—</strong></div>
+                    <div><span>Sexo</span><strong id="patient-sex">—</strong></div>
+                    <div><span>Peso</span><strong id="patient-weight">—</strong></div>
+                    <div><span>Motivo actual</span><strong id="patient-reason">—</strong></div>
+                    <div><span>Teléfono</span><strong id="patient-phone">—</strong></div>
+                    <div><span>Técnico</span><strong id="patient-tecnico">—</strong></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <div class="grid-2">
+              <article class="panel">
+                <div class="panel-title">
+                  <div>
+                    <h2>Historial</h2>
+                    <p>Atenciones del médico y apoyos anteriores.</p>
+                  </div>
+                </div>
+                <div id="patient-history" class="timeline"></div>
+              </article>
+              <article class="panel">
+                <div class="panel-title">
+                  <div>
+                    <h2>Vacunas</h2>
+                    <p>Estado y próximas fechas.</p>
+                  </div>
+                </div>
+                <div id="patient-vaccines" class="vaccine-list"></div>
+              </article>
+            </div>
+
+            <article class="panel">
+              <div class="panel-title">
+                <div>
+                  <h2>Anotar apoyo</h2>
+                  <p>Después de preparar a la mascota, guarda lo que hiciste.</p>
+                </div>
+              </div>
+              <form id="apoyo-form" novalidate>
+                <input type="hidden" id="apoyo-paciente">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="apoyo-fecha">Fecha</label>
+                    <input id="apoyo-fecha" name="fecha" type="date" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="apoyo-tipo">Tipo de apoyo</label>
+                    <select id="apoyo-tipo" name="tipo" required>
+                      <option value="">Selecciona</option>
+                      <option>Vacunación</option>
+                      <option>Toma de muestra</option>
+                      <option>Contención</option>
+                      <option>Preparación del paciente</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="apoyo-detalle">Qué se hizo</label>
+                  <textarea id="apoyo-detalle" name="detalle" rows="3" required></textarea>
+                </div>
+                <button class="btn btn-primary" type="submit">Guardar apoyo</button>
+                <p class="form-message" aria-live="polite"></p>
+              </form>
+            </article>
+          </div>
+        </section>
+
+        <section class="dashboard-section" data-section-panel="stock">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Inventario</p>
+              <h2>Medicamentos y vacunas</h2>
+              <p>Consulta el stock para preparar una vacuna o un medicamento. No se edita desde aquí.</p>
+            </div>
+          </div>
+          <article class="panel">
+            <div class="filter-row">
+              <div class="form-group">
+                <label class="sr-only" for="buscador-stock">Buscar producto</label>
+                <input id="buscador-stock" type="search" placeholder="Buscar producto">
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="filtro-stock">Filtrar por categoría</label>
+                <select id="filtro-stock">
+                  <option value="">Todas las categorías</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <caption class="sr-only">Inventario</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Código</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Categoría</th>
+                    <th scope="col">Principio activo</th>
+                    <th scope="col">Especie</th>
+                    <th scope="col">Stock</th>
+                  </tr>
+                </thead>
+                <tbody id="tabla-stock"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+  </div>
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+  <script src="js/data.js"></script>
+  <script src="js/comun.js"></script>
+  <script src="js/tecnico.js"></script>
+</body>
+</html>
