@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veterinaria San Marcos</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- CABECERA: logo y enlaces principales -->
+    <header class="site-header">
+        <div class="container nav-wrap">
+            <a href="index.html" class="brand-logo">
+                <img src="assets/logo-san-marcos.png" alt="Logo Veterinaria San Marcos">
+            </a>
+
+            <nav class="main-nav">
+                <a href="#inicio">Inicio</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#nosotros">Nosotros</a>
+                <a href="#contacto">Contacto</a>
+                <a href="login.html">Iniciar sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO: presentación de la veterinaria -->
+        <section id="inicio" class="hero">
+            <div class="container hero-grid">
+                <div class="hero-copy">
+                    <h1>Tu mascota, nuestra prioridad</h1>
+                    <p>
+                        Atención veterinaria para perros, gatos, conejos y aves en Rancagua.
+                    </p>
+                    <div class="hero-actions">
+                        <a class="btn btn-primary" href="#servicios">Ver servicios</a>
+                        <a class="btn btn-dark" href="login.html">Solicitar una cita</a>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <img class="hero-photo" src="assets/hero-veterinaria.png" alt="Imagen de Veterinaria San Marcos">
+                </div>
+            </div>
+        </section>
+
+        <!-- NOSOTROS -->
+        <section id="nosotros" class="section">
+            <div class="container split">
+                <div class="about-visual">
+                    <img src="assets/logo-san-marcos.png" alt="Logo Veterinaria San Marcos">
+                </div>
+
+                <div>
+                    <h2>Sobre nosotros</h2>
+                    <p>
+                        Veterinaria San Marcos fue fundada en 2009. Atendemos principalmente
+                        perros y gatos, además de conejos y aves.
+                    </p>
+                    <p>
+                        Nuestro equipo está compuesto por médicos veterinarios, un técnico
+                        veterinario y una recepcionista administrativa.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SERVICIOS: algunos ejemplos del catálogo -->
+        <section id="servicios" class="section section-soft">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>Servicios</h2>
+                    <p>Estos son algunos de los servicios disponibles.</p>
+                </div>
+
+                <div class="service-grid">
+                    <article class="card service-card">
+                        <h3>Consulta general</h3>
+                        <p>Perro / Gato - 30 min.</p>
+                        <strong>$15.000</strong>
+                    </article>
+
+                    <article class="card service-card">
+                        <h3>Vacuna antirrábica</h3>
+                        <p>Perro - 10 min.</p>
+                        <strong>$12.000</strong>
+                    </article>
+
+                    <article class="card service-card">
+                        <h3>Desparasitación externa</h3>
+                        <p>Perro / Gato</p>
+                        <strong>$7.500</strong>
+                    </article>
+
+                    <article class="card service-card">
+                        <h3>Esterilización felina</h3>
+                        <p>Gato - 45 min.</p>
+                        <strong>$50.000</strong>
+                    </article>
+
+                    <article class="card service-card">
+                        <h3>Hemograma completo</h3>
+                        <p>Perro / Gato</p>
+                        <strong>$22.000</strong>
+                    </article>
+
+                    <article class="card service-card">
+                        <h3>Microchip</h3>
+                        <p>Perro / Gato</p>
+                        <strong>$15.000</strong>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACTO: el formulario se valida con JavaScript -->
+        <section id="contacto" class="section contact-section">
+            <div class="container contact-grid">
+                <div class="contact-copy">
+                    <h2>Contacto</h2>
+                    <p>Completa el formulario para dejar una consulta.</p>
+                    <p><strong>Ubicación:</strong> Rancagua, Región de O'Higgins</p>
+                    <p><strong>Atención:</strong> Perros, gatos, conejos y aves</p>
+                </div>
+
+                <div class="panel">
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="contact-name">Nombre</label>
+                            <input id="contact-name" type="text">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-email">Correo</label>
+                            <input id="contact-email" type="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-phone">Teléfono</label>
+                            <input id="contact-phone" type="tel">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-subject">Motivo</label>
+                            <select id="contact-subject">
+                                <option value="">Selecciona una opción</option>
+                                <option value="Cita">Consulta por cita</option>
+                                <option value="Servicio">Consulta por servicio</option>
+                                <option value="Mascota">Consulta por mascota</option>
+                                <option value="Otro">Otra consulta</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-message">Mensaje</label>
+                            <textarea id="contact-message" rows="5"></textarea>
+                        </div>
+
+                        <button class="btn btn-primary" type="submit">Enviar consulta</button>
+                        <p id="contact-message-result" class="form-message"></p>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div>
+                <img src="assets/logo-san-marcos.png" alt="Veterinaria San Marcos">
+                <p>Atención veterinaria en Rancagua.</p>
+            </div>
+
+            <nav class="footer-nav">
+                <a href="#inicio">Inicio</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#nosotros">Nosotros</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
