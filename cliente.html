@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi cuenta | Veterinaria San Marcos</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/png" href="assets/logo-san-marcos.png">
+</head>
+<body class="app-page" data-role="cliente">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="sidebar-brand" href="index.html">
+        <span class="sidebar-brand-mark logo-mark">
+          <img src="assets/logo-san-marcos.png" alt="">
+        </span>
+        <span>San Marcos</span>
+      </a>
+      <div class="sidebar-profile">
+        <strong>Dueño de mascota</strong>
+        <span id="sidebar-email"></span>
+      </div>
+      <nav class="sidebar-nav" aria-label="Mi cuenta">
+        <button class="side-link active" type="button" data-section="dashboard" data-title="Mi cuenta"><span class="side-icon">⌂</span>Inicio</button>
+        <button class="side-link" type="button" data-section="pets" data-title="Mis mascotas"><span class="side-icon">🐾</span>Mis mascotas</button>
+        <button class="side-link" type="button" data-section="appointments" data-title="Mis citas"><span class="side-icon">▣</span>Citas</button>
+        <button class="side-link" type="button" data-section="vaccines" data-title="Vacunas"><span class="side-icon">✚</span>Vacunas</button>
+        <button class="side-link" type="button" data-section="services" data-title="Servicios"><span class="side-icon">▦</span>Servicios</button>
+      </nav>
+      <footer class="sidebar-footer">
+        <button id="logout-btn" class="btn btn-dark" type="button">Cerrar sesión</button>
+      </footer>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button id="sidebar-toggle" class="btn btn-soft btn-square mobile-sidebar-toggle" type="button" aria-label="Abrir menú">☰</button>
+          <h1 id="page-title">Mi cuenta</h1>
+        </div>
+        <div class="topbar-user">
+          <span class="online-dot" aria-hidden="true"></span>
+          <span id="session-email" class="topbar-email"></span>
+        </div>
+      </header>
+
+      <main class="workspace-content">
+        <section class="dashboard-section active" data-section-panel="dashboard">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Mi cuenta</p>
+              <h2>Información de tus mascotas</h2>
+              <p>En esta demostración el rol cliente muestra las mascotas de Camila Rojas: Luna y Mila. Falta un servidor que busque las mascotas según el correo.</p>
+            </div>
+          </div>
+          <div class="stat-grid">
+            <article class="card stat-card">
+              <span class="stat-label">Mis mascotas</span>
+              <strong class="stat-value" id="n-mascotas">2</strong>
+              <span class="stat-note">Asociadas a Camila Rojas</span>
+            </article>
+            <article class="card stat-card">
+              <span class="stat-label">Citas</span>
+              <strong class="stat-value" id="n-citas">5</strong>
+              <span class="stat-note">Agenda de la clínica</span>
+            </article>
+            <article class="card stat-card">
+              <span class="stat-label">Servicios</span>
+              <strong class="stat-value" id="n-servicios">31</strong>
+              <span class="stat-note">Catálogo disponible</span>
+            </article>
+            <article class="card stat-card">
+              <span class="stat-label">Vacunación</span>
+              <strong class="stat-value" id="n-vacunas">6</strong>
+              <span class="stat-note">Servicios registrados</span>
+            </article>
+          </div>
+          <div class="grid-2">
+            <article class="panel" id="client-home-pet">
+              <div class="patient-summary">
+                <div id="client-home-pet-emoji" class="patient-avatar">🐱</div>
+                <div>
+                  <p class="eyebrow">Mi mascota</p>
+                  <h2 id="client-home-pet-name">Mila</h2>
+                  <p id="client-home-pet-data" class="muted">Gato · Doméstico de pelo corto · 3 años</p>
+                </div>
+              </div>
+            </article>
+            <article class="panel">
+              <div class="panel-title">
+                <div>
+                  <h2>Próxima cita</h2>
+                  <p>Sale de la misma agenda de la clínica.</p>
+                </div>
+                <span id="client-next-status" class="status status-ok">Confirmada</span>
+              </div>
+              <div id="client-next-appointment" class="quick-list"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="dashboard-section" data-section-panel="pets">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Mascotas</p>
+              <h2>Mis mascotas</h2>
+              <p>Estas mascotas están en la lista de pacientes de la clínica.</p>
+            </div>
+          </div>
+          <div id="client-pets-grid" class="grid-2"></div>
+        </section>
+
+        <section class="dashboard-section" data-section-panel="appointments">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Citas</p>
+              <h2>Mis citas</h2>
+              <p>Si pides una cita, recepción y administración la ven en su agenda.</p>
+            </div>
+          </div>
+          <div class="grid-2 wide-left">
+            <article class="panel">
+              <div class="table-wrap">
+                <table>
+                  <caption class="sr-only">Citas de las mascotas del cliente</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Mascota</th>
+                      <th scope="col">Fecha</th>
+                      <th scope="col">Hora</th>
+                      <th scope="col">Servicio</th>
+                      <th scope="col">Estado</th>
+                    </tr>
+                  </thead>
+                  <tbody id="client-appointments-table"></tbody>
+                </table>
+              </div>
+            </article>
+            <article class="panel">
+              <div class="panel-title">
+                <div>
+                  <h2>Solicitar cita</h2>
+                  <p>Elige mascota, servicio y fecha. La hora queda 09:00 hasta que recepción la confirme.</p>
+                </div>
+              </div>
+              <form id="client-appointment-form" novalidate>
+                <div class="form-group">
+                  <label for="client-pet">Mascota</label>
+                  <select id="client-pet" name="mascota" required>
+                    <option value="">Selecciona</option>
+                  </select>
+                  <p id="client-pet-error" class="error" aria-live="polite"></p>
+                </div>
+                <div class="form-group">
+                  <label for="client-service">Servicio</label>
+                  <select id="client-service" name="servicio" required>
+                    <option value="">Selecciona</option>
+                  </select>
+                  <p id="client-service-error" class="error" aria-live="polite"></p>
+                </div>
+                <div class="form-group">
+                  <label for="client-date">Fecha preferida</label>
+                  <input id="client-date" name="fecha" type="date" required>
+                  <p id="client-date-error" class="error" aria-live="polite"></p>
+                </div>
+                <div class="form-group">
+                  <label for="client-notes">Comentario</label>
+                  <textarea id="client-notes" name="comentario" rows="3" placeholder="Opcional"></textarea>
+                </div>
+                <button class="btn btn-primary" type="submit">Solicitar cita</button>
+                <p class="form-message" aria-live="polite"></p>
+              </form>
+            </article>
+          </div>
+        </section>
+
+        <section class="dashboard-section" data-section-panel="vaccines">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Vacunas</p>
+              <h2>Historial de vacunación</h2>
+              <p>Estas fechas salen de las fichas clínicas de Luna y Mila.</p>
+            </div>
+          </div>
+          <article class="panel">
+            <div id="client-vaccines"></div>
+          </article>
+        </section>
+
+        <section class="dashboard-section" data-section-panel="services">
+          <div class="page-heading">
+            <div>
+              <p class="eyebrow">Servicios</p>
+              <h2>Catálogo de la clínica</h2>
+              <p>Revisa valores y duración antes de solicitar una cita.</p>
+            </div>
+          </div>
+          <article class="panel">
+            <div class="filter-row">
+              <div class="form-group">
+                <label class="sr-only" for="buscador-servicios">Buscar servicio</label>
+                <input id="buscador-servicios" type="search" placeholder="Buscar servicio">
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="filtro-servicios">Filtrar por categoría</label>
+                <select id="filtro-servicios">
+                  <option value="">Todas las categorías</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <caption class="sr-only">Catálogo de servicios</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Categoría</th>
+                    <th scope="col">Servicio</th>
+                    <th scope="col">Especie</th>
+                    <th scope="col">Duración</th>
+                    <th scope="col">Precio</th>
+                  </tr>
+                </thead>
+                <tbody id="tabla-servicios"></tbody>
+              </table>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+  </div>
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+  <script src="js/data.js"></script>
+  <script src="js/comun.js"></script>
+  <script src="js/cliente.js"></script>
+</body>
+</html>
