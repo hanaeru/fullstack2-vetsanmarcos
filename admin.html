@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administrador | Veterinaria San Marcos</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/png" href="assets/logo-san-marcos.png">
+</head>
+<body class="app-page" data-role="admin">
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="sidebar-brand" href="index.html">
+        <span class="sidebar-brand-mark logo-mark">
+          <img src="assets/logo-san-marcos.png" alt="">
+        </span>
+        <span>San Marcos</span>
+      </a>
+      <div class="sidebar-profile"><strong>Administrador</strong><span id="sidebar-email"></span></div>
+      <nav class="sidebar-nav" aria-label="Panel administrador">
+        <button class="side-link active" type="button" data-section="dashboard" data-title="Dashboard general"><span class="side-icon">⌂</span>Dashboard</button>
+        <button class="side-link" type="button" data-section="appointments" data-title="Citas"><span class="side-icon">◷</span>Citas</button>
+        <button class="side-link" type="button" data-section="patients" data-title="Pacientes"><span class="side-icon">🐾</span>Pacientes</button>
+        <button class="side-link" type="button" data-section="records" data-title="Fichas clínicas"><span class="side-icon">▤</span>Fichas clínicas</button>
+        <button class="side-link" type="button" data-section="users" data-title="Usuarios"><span class="side-icon">👥</span>Usuarios</button>
+        <button class="side-link" type="button" data-section="services" data-title="Servicios"><span class="side-icon">▦</span>Servicios</button>
+        <button class="side-link" type="button" data-section="inventory" data-title="Inventario"><span class="side-icon">▣</span>Inventario</button>
+        <button class="side-link" type="button" data-section="reports" data-title="Reportes"><span class="side-icon">▥</span>Reportes</button>
+      </nav>
+      <footer class="sidebar-footer"><button id="logout-btn" class="btn btn-dark" type="button">Cerrar sesión</button></footer>
+    </aside>
+
+    <div class="workspace">
+      <!-- BARRA SUPERIOR: muestra el nombre de la sección y el usuario de la sesión. -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button id="sidebar-toggle" class="btn btn-soft btn-square mobile-sidebar-toggle" type="button" aria-label="Abrir menú">☰</button>
+          <h1 id="page-title">Dashboard general</h1>
+        </div>
+        <div class="topbar-user"><span class="online-dot"></span><span id="session-email" class="topbar-email"></span></div>
+      </header>
+
+      <!-- Cada section funciona como una "pantalla" interna. Solo una se muestra a la vez. -->
+      <main class="workspace-content">
+        <!-- DASHBOARD GENERAL -->
+        <section class="dashboard-section active" data-section-panel="dashboard">
+          <div class="page-heading"><div><p class="eyebrow">Administración</p><h2>Resumen general</h2><p>Los cambios de este panel se guardan en este navegador y se ven en recepción, veterinario y cliente.</p></div></div>
+          <div class="stat-grid">
+            <article class="card stat-card"><span class="stat-label">Citas registradas</span><strong class="stat-value" id="admin-count-appointments">0</strong><span class="stat-note">Agenda actual</span></article>
+            <article class="card stat-card"><span class="stat-label">Pacientes</span><strong class="stat-value" id="admin-count-patients">0</strong><span class="stat-note">Fichas disponibles</span></article>
+            <article class="card stat-card"><span class="stat-label">Usuarios</span><strong class="stat-value" id="admin-count-users">0</strong><span class="stat-note">Todos los roles</span></article>
+            <article class="card stat-card"><span class="stat-label">Productos</span><strong class="stat-value" id="admin-count-stock">0</strong><span class="stat-note">Inventario</span></article>
+          </div>
+          <div class="grid-2 wide-left">
+            <article class="panel">
+              <div class="panel-title"><div><h2>Operación de la clínica</h2><p>Indicadores principales del caso.</p></div></div>
+              <div class="quick-list">
+                <div class="quick-item"><span>Pacientes promedio al día</span><strong data-clinic-stat="pacientesPromedioDia">25</strong></div>
+                <div class="quick-item"><span>Inasistencia de citas</span><strong><span data-clinic-stat="inasistenciaPorcentaje">20</span>%</strong></div>
+                <div class="quick-item"><span>Veterinarios</span><strong data-clinic-stat="veterinarios">3</strong></div>
+                <div class="quick-item"><span>Personal técnico y recepción</span><strong>2</strong></div>
+              </div>
+            </article>
+            <article class="panel">
+              <div class="panel-title"><div><h2>Stock a revisar</h2><p>Productos con 20 unidades o menos.</p></div><button class="btn btn-soft btn-small ir-seccion" data-go-section="inventory" data-title="Inventario" type="button">Ver inventario</button></div>
+              <div class="quick-list" id="admin-low-stock"></div>
+            </article>
+          </div>
+        </section>
+
+        <!-- CITAS: listado, creación y edición. -->
+        <section class="dashboard-section" data-section-panel="appointments">
+          <div class="page-heading"><div><p class="eyebrow">Agenda</p><h2>Todas las citas</h2><p>El administrador puede revisar y modificar cualquier cita.</p></div><button class="btn btn-primary" id="admin-new-appointment" type="button">Nueva cita</button></div>
+          <article class="panel">
+            <div class="search-bar">
+              <label class="sr-only" for="admin-appointment-search">Buscar cita</label>
+              <input id="admin-appointment-search" type="search" placeholder="Buscar paciente, servicio o estado">
+            </div>
+            <div class="table-wrap">
+              <table>
+                <caption class="sr-only">Todas las citas</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Hora</th>
+                    <th scope="col">Paciente</th>
+                    <th scope="col">Responsable</th>
+                    <th scope="col">Servicio</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-appointments-table"></tbody>
+              </table>
+            </div>
+          </article>
+          <article class="panel admin-editor" id="admin-appointment-editor" hidden>
+            <div class="panel-title"><div><h2 id="admin-appointment-form-title">Editar cita</h2><p>Modifica los datos y guarda los cambios.</p></div><button class="btn btn-soft btn-small admin-close-editor" type="button">Cerrar</button></div>
+            <form id="admin-appointment-form" novalidate>
+              <input type="hidden" id="admin-appointment-id">
+              <div class="form-row">
+                <div class="form-group"><label for="admin-appointment-date">Fecha</label><input id="admin-appointment-date" name="fecha" type="date" required></div>
+                <div class="form-group"><label for="admin-appointment-time">Hora</label><input id="admin-appointment-time" name="hora" type="time" required></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group"><label for="admin-appointment-patient">Paciente</label><select id="admin-appointment-patient" name="paciente" required></select></div>
+                <div class="form-group"><label for="admin-appointment-service">Servicio</label><select id="admin-appointment-service" name="servicio" required></select></div>
+              </div>
+              <div class="form-group"><label for="admin-appointment-status">Estado</label><select id="admin-appointment-status" name="estado" required><option>Confirmada</option><option>Pendiente</option><option>En espera</option><option>Reagendada</option><option>Cancelada</option></select></div>
+              <button class="btn btn-primary" type="submit">Guardar cita</button>
+            </form>
+          </article>
+        </section>
+
+        <!-- PACIENTES: listado y edición de datos generales. -->
+        <section class="dashboard-section" data-section-panel="patients">
+          <div class="page-heading"><div><p class="eyebrow">Pacientes</p><h2>Todos los pacientes</h2><p>Consulta y edita los datos generales de cualquier paciente.</p></div><button class="btn btn-primary" id="admin-new-patient" type="button">Nuevo paciente</button></div>
+          <article class="panel">
+            <div class="search-bar">
+              <label class="sr-only" for="admin-patient-search">Buscar paciente</label>
+              <input id="admin-patient-search" type="search" placeholder="Buscar mascota, responsable o especie">
+            </div>
+            <div class="table-wrap">
+              <table>
+                <caption class="sr-only">Todos los pacientes</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Paciente</th>
+                    <th scope="col">Especie</th>
+                    <th scope="col">Responsable</th>
+                    <th scope="col">Teléfono</th>
+                    <th scope="col">Técnico</th>
+                    <th scope="col">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-patients-table"></tbody>
+              </table>
+            </div>
+          </article>
+          <article class="panel admin-editor" id="admin-patient-editor" hidden>
+            <div class="panel-title"><div><h2 id="admin-patient-form-title">Editar paciente</h2><p>Actualiza la información de la ficha.</p></div><button class="btn btn-soft btn-small admin-close-editor" type="button">Cerrar</button></div>
+            <form id="admin-patient-form" novalidate>
+              <input type="hidden" id="admin-patient-id">
+              <div class="form-row form-row-3">
+                <div class="form-group"><label for="admin-patient-name">Nombre</label><input id="admin-patient-name" name="nombre" type="text" required></div>
+                <div class="form-group"><label for="admin-patient-species">Especie</label><select id="admin-patient-species" name="especie" required><option>Perro</option><option>Gato</option><option>Ave</option><option>Conejo</option></select></div>
+                <div class="form-group"><label for="admin-patient-breed">Raza</label><input id="admin-patient-breed" name="raza" type="text" required></div>
+              </div>
+              <div class="form-row form-row-3">
+                <div class="form-group"><label for="admin-patient-age">Edad</label><input id="admin-patient-age" name="edad" type="text" required></div>
+                <div class="form-group"><label for="admin-patient-sex">Sexo</label><select id="admin-patient-sex" name="sexo" required><option>Hembra</option><option>Macho</option><option>Sin registrar</option></select></div>
+                <div class="form-group"><label for="admin-patient-weight">Peso</label><input id="admin-patient-weight" name="peso" type="text" required></div>
+              </div>
+              <div class="form-row form-row-3">
+                <div class="form-group"><label for="admin-patient-owner">Responsable</label><input id="admin-patient-owner" name="responsable" type="text" required></div>
+                <div class="form-group"><label for="admin-patient-phone">Teléfono</label><input id="admin-patient-phone" name="telefono" type="tel" required></div>
+                <div class="form-group"><label for="admin-patient-reason">Motivo actual</label><input id="admin-patient-reason" name="motivo" type="text" required></div>
+              </div>
+              <div class="form-group">
+                <label for="admin-patient-tecnico">Técnico asignado</label>
+                <select id="admin-patient-tecnico">
+                  <option value="">Sin asignar</option>
+                </select>
+              </div>
+              <button class="btn btn-primary" type="submit">Guardar paciente</button>
+            </form>
+          </article>
+        </section>
+
+        <!-- FICHAS CLÍNICAS: historial y vacunas de cada mascota. -->
+        <section class="dashboard-section" data-section-panel="records">
+          <div class="page-heading"><div><p class="eyebrow">Fichas clínicas</p><h2>Historial y vacunas</h2><p>Selecciona un paciente para revisar o actualizar su ficha clínica.</p></div></div>
+          <article class="panel">
+            <div class="form-group"><label for="admin-record-patient">Paciente</label><select id="admin-record-patient"><option value="">Selecciona un paciente</option></select></div>
+          </article>
+          <div id="admin-record-content" hidden>
+            <div class="grid-2">
+              <article class="panel">
+                <div class="panel-title"><div><p class="eyebrow">Historial clínico</p><h2 id="admin-record-title">Paciente</h2></div></div>
+                <div id="admin-history-list" class="timeline"></div>
+                <hr class="section-divider">
+                <form id="admin-history-form" novalidate>
+                  <input type="hidden" id="admin-history-index">
+                  <div class="form-row">
+                    <div class="form-group"><label for="admin-history-date">Fecha</label><input id="admin-history-date" type="date" required></div>
+                    <div class="form-group"><label for="admin-history-type">Tipo</label><input id="admin-history-type" name="tipo" type="text" placeholder="Consulta general" required></div>
+                  </div>
+                  <div class="form-group"><label for="admin-history-detail">Detalle</label><textarea id="admin-history-detail" rows="4" required></textarea></div>
+                  <button class="btn btn-primary" type="submit">Agregar registro</button>
+                </form>
+              </article>
+              <article class="panel">
+                <div class="panel-title"><div><p class="eyebrow">Vacunas</p><h2>Estado de vacunación</h2></div></div>
+                <div id="admin-vaccine-list"></div>
+                <hr class="section-divider">
+                <form id="admin-vaccine-form" novalidate>
+                  <input type="hidden" id="admin-vaccine-index">
+                  <div class="form-group"><label for="admin-vaccine-name">Vacuna</label><input id="admin-vaccine-name" name="vacuna" type="text" required></div>
+                  <div class="form-row">
+                    <div class="form-group"><label for="admin-vaccine-date">Fecha aplicada</label><input id="admin-vaccine-date" type="date" required></div>
+                    <div class="form-group"><label for="admin-vaccine-next">Próxima dosis</label><input id="admin-vaccine-next" type="date" required></div>
+                  </div>
+                  <div class="form-group"><label for="admin-vaccine-status">Estado</label><select id="admin-vaccine-status"><option>Al día</option><option>Próxima</option><option>Corresponde hoy</option><option>Sin registros</option></select></div>
+                  <button class="btn btn-primary" type="submit">Agregar vacuna</button>
+                </form>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- USUARIOS: administración de cuentas y roles. -->
+        <section class="dashboard-section" data-section-panel="users">
+          <div class="page-heading"><div><p class="eyebrow">Usuarios</p><h2>Gestión de usuarios</h2><p>Administra cuentas, roles y estados de acceso.</p></div><button class="btn btn-primary" id="admin-new-user" type="button">Crear usuario</button></div>
+          <article class="panel">
+            <div class="search-bar">
+              <label class="sr-only" for="admin-user-search">Buscar usuario</label>
+              <input id="admin-user-search" type="search" placeholder="Buscar por nombre, correo o rol">
+            </div>
+            <div class="table-wrap">
+              <table>
+                <caption class="sr-only">Usuarios del sistema</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Rol</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-users-table"></tbody>
+              </table>
+            </div>
+          </article>
+          <article class="panel admin-editor" id="admin-user-editor" hidden>
+            <div class="panel-title"><div><h2 id="admin-user-form-title">Editar usuario</h2><p>Modifica los datos de la cuenta.</p></div><button class="btn btn-soft btn-small admin-close-editor" type="button">Cerrar</button></div>
+            <form id="admin-user-form" novalidate>
+              <input type="hidden" id="admin-user-id">
+              <div class="form-row">
+                <div class="form-group"><label for="admin-user-name">Nombre</label><input id="admin-user-name" name="nombre" type="text" required></div>
+                <div class="form-group"><label for="admin-user-email">Correo</label><input id="admin-user-email" name="correo" type="email" required></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group"><label for="admin-user-role">Rol</label><select id="admin-user-role" required><option>Administrador</option><option>Recepcionista</option><option>Veterinario</option><option>Técnico veterinario</option><option>Dueño de mascota</option></select></div>
+                <div class="form-group"><label for="admin-user-status">Estado</label><select id="admin-user-status" required><option>Activo</option><option>Inactivo</option></select></div>
+              </div>
+              <button class="btn btn-primary" type="submit">Guardar usuario</button>
+            </form>
+          </article>
+        </section>
+
+        <!-- SERVICIOS: catálogo completo de prestaciones. -->
+        <section class="dashboard-section" data-section-panel="services">
+          <div class="page-heading"><div><p class="eyebrow">Servicios</p><h2>Catálogo completo</h2><p>Consulta, crea y edita servicios, precios y duración.</p></div><button class="btn btn-primary" id="admin-new-service" type="button">Nuevo servicio</button></div>
+          <article class="panel">
+            <div class="search-bar">
+              <label class="sr-only" for="admin-service-search">Buscar servicio</label>
+              <input id="admin-service-search" type="search" placeholder="Buscar servicio, código o categoría">
+            </div>
+            <div class="table-wrap">
+              <table>
+                <caption class="sr-only">Catálogo de servicios</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Código</th>
+                    <th scope="col">Categoría</th>
+                    <th scope="col">Servicio</th>
+                    <th scope="col">Especie</th>
+                    <th scope="col">Duración</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-services-table"></tbody>
+              </table>
+            </div>
+          </article>
+          <article class="panel admin-editor" id="admin-service-editor" hidden>
+            <div class="panel-title"><div><h2 id="admin-service-form-title">Editar servicio</h2><p>Actualiza la información del catálogo.</p></div><button class="btn btn-soft btn-small admin-close-editor" type="button">Cerrar</button></div>
+            <form id="admin-service-form" novalidate>
+              <input type="hidden" id="admin-service-original-code">
+              <div class="form-row">
+                <div class="form-group"><label for="admin-service-code">Código</label><input id="admin-service-code" name="codigo" type="text" required></div>
+                <div class="form-group"><label for="admin-service-category">Categoría</label><input id="admin-service-category" name="categoria" type="text" required></div>
+                <div class="form-group"><label for="admin-service-name">Nombre</label><input id="admin-service-name" name="nombre" type="text" required></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group"><label for="admin-service-species">Especie</label><input id="admin-service-species" name="especie" type="text" required></div>
+                <div class="form-group"><label for="admin-service-duration">Duración</label><input id="admin-service-duration" name="duracion" type="text" required></div>
+                <div class="form-group"><label for="admin-service-price">Precio</label><input id="admin-service-price" type="number" min="0" required></div>
+              </div>
+              <div class="form-group"><label for="admin-service-notes">Observaciones</label><textarea id="admin-service-notes" rows="3"></textarea></div>
+              <button class="btn btn-primary" type="submit">Guardar servicio</button>
+            </form>
+          </article>
+        </section>
+
+        <!-- INVENTARIO: medicamentos, vacunas, stock y precios. -->
+        <section class="dashboard-section" data-section-panel="inventory">
+          <div class="page-heading"><div><p class="eyebrow">Inventario</p><h2>Medicamentos y vacunas</h2><p>Consulta, crea y edita productos, stock y valores.</p></div><button class="btn btn-primary" id="admin-new-stock" type="button">Nuevo producto</button></div>
+          <article class="panel">
+            <div class="search-bar">
+              <label class="sr-only" for="admin-stock-search">Buscar producto</label>
+              <input id="admin-stock-search" type="search" placeholder="Buscar producto, código o categoría">
+            </div>
+            <div class="table-wrap">
+              <table>
+                <caption class="sr-only">Inventario de medicamentos y vacunas</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Código</th>
+                    <th scope="col">Categoría</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Principio activo</th>
+                    <th scope="col">Presentación</th>
+                    <th scope="col">Stock</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-stock-table"></tbody>
+              </table>
+            </div>
+          </article>
+          <article class="panel admin-editor" id="admin-stock-editor" hidden>
+            <div class="panel-title"><div><h2 id="admin-stock-form-title">Editar producto</h2><p>Actualiza los datos del inventario.</p></div><button class="btn btn-soft btn-small admin-close-editor" type="button">Cerrar</button></div>
+            <form id="admin-stock-form" novalidate>
+              <input type="hidden" id="admin-stock-original-code">
+              <div class="form-row">
+                <div class="form-group"><label for="admin-stock-code">Código</label><input id="admin-stock-code" name="codigo" type="text" required></div>
+                <div class="form-group"><label for="admin-stock-category">Categoría</label><input id="admin-stock-category" name="categoria" type="text" required></div>
+                <div class="form-group"><label for="admin-stock-name">Producto</label><input id="admin-stock-name" name="nombre" type="text" required></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group"><label for="admin-stock-active">Principio activo</label><input id="admin-stock-active" name="principio" type="text" required></div>
+                <div class="form-group"><label for="admin-stock-presentation">Presentación</label><input id="admin-stock-presentation" name="presentacion" type="text" required></div>
+                <div class="form-group"><label for="admin-stock-species">Especie</label><input id="admin-stock-species" name="especie" type="text" required></div>
+              </div>
+              <div class="form-row">
+                <div class="form-group"><label for="admin-stock-quantity">Stock</label><input id="admin-stock-quantity" type="number" min="0" required></div>
+                <div class="form-group"><label for="admin-stock-price">Precio unitario</label><input id="admin-stock-price" type="number" min="0" required></div>
+              </div>
+              <button class="btn btn-primary" type="submit">Guardar producto</button>
+            </form>
+          </article>
+        </section>
+
+        <!-- REPORTES: resumen de los datos disponibles. -->
+        <section class="dashboard-section" data-section-panel="reports">
+          <div class="page-heading"><div><p class="eyebrow">Reportes</p><h2>Indicadores y resumen</h2><p>Consulta la información general del sistema.</p></div></div>
+          <div class="grid-2">
+            <article class="panel">
+              <div class="quick-list" id="admin-report-list"></div>
+            </article>
+            <article class="panel">
+              <div class="panel-title"><div><h2>Resumen por período</h2><p>Selecciona un rango de consulta.</p></div></div>
+              <form id="report-form" novalidate>
+                <div class="form-group"><label for="report-period">Período</label><select id="report-period" required><option value="">Selecciona</option><option value="day">Hoy</option><option value="week">Esta semana</option><option value="month">Este mes</option></select></div>
+                <button class="btn btn-primary" type="submit">Generar resumen</button>
+                <p id="report-message" class="form-message" aria-live="polite"></p>
+              </form>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div id="toast-container" class="toast-container" aria-live="polite"></div>
+  <!-- Orden importante: primero los datos, luego funciones generales y al final funciones exclusivas del administrador. -->
+  <script src="js/data.js"></script>
+  <script src="js/comun.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
